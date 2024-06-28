@@ -1,7 +1,7 @@
 package com.example.orders.controllers;
 
 import com.example.orders.security.AuthenticationReq;
-import com.example.orders.security.JwtUtilService;
+import com.example.orders.services.JwtUtilService;
 import com.example.orders.security.TokenInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
