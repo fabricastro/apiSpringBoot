@@ -1,44 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.example</groupId>
-	<artifactId>tpfinal</artifactId>
+	<artifactId>AppSpringBoot</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
+	<packaging>pom</packaging>
+
 	<developers>
-		<developer/>
+		<developer>
+			<name>Matias Castro y Fabricio Castro</name>
+		</developer>
 	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
 
 	<properties>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring-boot.version>3.3.0</spring-boot.version> <!-- Define aquí la versión de Spring Boot -->
 	</properties>
 
-	<packaging>pom</packaging>
-
 	<modules>
-	    <module>products</module>
-		<module>orders</module>
+		<module>Products</module>
+		<module>Orders</module>
 	</modules>
-	<dependencies>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<!-- Dependencias comunes si las hubiera -->
 	</dependencies>
 
 	<build>
 		<plugins>
+			<!-- Plugins comunes si los hubiera -->
 		</plugins>
 	</build>
-
 </project>

@@ -6,8 +6,8 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_DB: ms_products
-      POSTGRES_USER: java
-      POSTGRES_PASSWORD: java123
+      POSTGRES_USER: developer
+      POSTGRES_PASSWORD: developer
     ports:
       - 5431:5431
     expose:
@@ -20,8 +20,8 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_DB: ms_orders
-      POSTGRES_USER: java
-      POSTGRES_PASSWORD: java123
+      POSTGRES_USER: developer
+      POSTGRES_PASSWORD: developer
     ports:
       - 3000:3000
     expose:
