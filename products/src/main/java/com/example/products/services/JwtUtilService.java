@@ -12,13 +12,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Service
 public class JwtUtilService {
 
-    private static final SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    public static final long JWT_TOKEN_VALIDITY = 1000 * 60 * 60 * 8; // 8 Horas
+    private static final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private static final long JWT_TOKEN_VALIDITY = 1000 * 60 * 60 * 8; // 8 Horas
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -29,34 +28,36 @@ public class JwtUtilService {
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        return claimsResolver.apply(extractAllClaims(token));
+        final Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
+        return Jwts.parserBuilder()
+                .setSigningKey(SECRET_KEY)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
-    private Boolean isTokenExpired(String token) {
+    private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        // Agregando informacion adicional como "claim"
-        var rol = userDetails.getAuthorities().stream().collect(Collectors.toList()).get(0);
-        claims.put("rol", rol);
+        claims.put("rol", userDetails.getAuthorities().iterator().next().getAuthority());
         return createToken(claims, userDetails.getUsername());
     }
 
     private String createToken(Map<String, Object> claims, String subject) {
-
-        return Jwts
-                .builder()
+        long nowMillis = System.currentTimeMillis();
+        return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY))
-                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .setIssuedAt(new Date(nowMillis))
+                .setExpiration(new Date(nowMillis + JWT_TOKEN_VALIDITY))
+                .signWith(SECRET_KEY)
                 .compact();
     }
 
@@ -65,4 +66,3 @@ public class JwtUtilService {
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 }
-

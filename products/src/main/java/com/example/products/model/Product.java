@@ -7,27 +7,33 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Este campo no puede estar vacio")
+    @NotBlank(message = "This field cannot be empty")
     private String sku;
 
-    @NotBlank(message = "Este campo no puede estar vacio")
+    @NotBlank(message = "This field cannot be empty")
     private String name;
 
-    @NotNull(message = "Este campo no puede ser nulo")
-    @DecimalMin(value = "0.0", message = "Debe ser mayor o igual a cero")
+    @NotNull(message = "This field cannot be null")
+    @DecimalMin(value = "0.0", message = "Must be greater than or equal to zero")
     private double price;
 
     private Boolean status;
+
+    @NotBlank(message = "This field cannot be empty")
+    private String description;
+
+    @NotNull(message = "This field cannot be null")
+    @DecimalMin(value = "0.0", message = "Must be greater than or equal to zero")
+    private double weight;
 }

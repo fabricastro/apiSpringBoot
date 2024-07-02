@@ -35,7 +35,7 @@ public class AuthController {
     public ResponseEntity<TokenInfo> authenticate(@RequestBody AuthenticationReq authenticationReq) {
         logger.info("Autenticando al usuario {}", authenticationReq.getUser());
 
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationReq.getUser(), authenticationReq.getClave()));
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationReq.getUser(), authenticationReq.getPassword()));
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationReq.getUser());
 
