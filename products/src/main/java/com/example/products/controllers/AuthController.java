@@ -24,20 +24,20 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    UserDetailsService usuarioDetailsService;
+    UserDetailsService userDetailsService;
 
     @Autowired
     private JwtUtilService jwtUtilService;
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
-    /********** METODO PARA MANEJAR SOLICITUDES DE AUTENTICACIÓN**********/
+    /* Maneja solicitudes de auth */
     @PostMapping("/authenticate")
     public ResponseEntity<TokenInfo> authenticate(@RequestBody AuthenticationReq authenticationReq) {
         logger.info("Autenticando al usuario {}", authenticationReq.getUser());
 
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationReq.getUser(), authenticationReq.getClave()));
 
-        final UserDetails userDetails = usuarioDetailsService.loadUserByUsername(authenticationReq.getUser());
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationReq.getUser());
 
         final String jwt = jwtUtilService.generateToken(userDetails);
 

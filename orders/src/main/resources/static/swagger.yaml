@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   title: "Orders API"
   version: "1.0.0"
-  description: "API for managing orders."
+  description: "API para manejar ordenes."
 paths:
   /api/orders:
     get:
@@ -10,7 +10,7 @@ paths:
       description: Retorna una lista de órdenes
       responses:
         '200':
-          description: Lista de órdenes
+          description: Listado de órdenes
           content:
             application/json:
               schema:

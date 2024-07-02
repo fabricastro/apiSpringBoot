@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SwaggerConfig {
 
-    /********** METODO CONFIGURA LA DOCUMENTACIÓN DE LA API**********/
+    /* configuracion de doc de api */
     @Bean
     public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()

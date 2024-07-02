@@ -12,17 +12,17 @@ import java.util.Set;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    /********** CARGA DE USUARIO POR NOMBRE DE USUARIO **********/
+    /* carga de usuario */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        var usuario = getById(username); // Busca el usuario por nombre de usuario.
+        var usuario = getById(username);
 
         if (usuario == null) {
-            throw new UsernameNotFoundException(username); // Si el usuario no se encuentra, lanza una excepción.
+            throw new UsernameNotFoundException(username);
         }
 
-        return User // Construye y retorna un objeto UserDetails con los datos del usuario.
+        return User
                 .withUsername(username)
                 .password(usuario.password())
                 .roles(usuario.roles().toArray(new String[0]))
@@ -31,20 +31,20 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     public record Usuario(String username, String password, Set<String> roles) {};
 
-    /********** BÚSQUEDA DE USUARIO POR ID **********/
+    /* busqueda de usuario por id */
     public static Usuario getById(String username) {
 
-        var password = "$2a$10$knW942L0g46h3rW72/Cxtuv0GdGDC4mWyLQAjMNWM7d17sKNcWe9u"; // Contraseña encriptada del usuario.
+        var password = "$2a$10$knW942L0g46h3rW72/Cxtuv0GdGDC4mWyLQAjMNWM7d17sKNcWe9u";
 
         Usuario castroUser = new Usuario(
                 "castro",
                 password,
-                Set.of("USER") // Crea un usuario de ejemplo.
+                Set.of("USER")
         );
 
-        var users = List.of(castroUser); // Lista de users.
+        var users = List.of(castroUser);
 
-        return users  // Busca y retorna el usuario que coincide con el nombre de usuario.
+        return users
                 .stream()
                 .filter(e -> e.username().equals(username))
                 .findFirst()

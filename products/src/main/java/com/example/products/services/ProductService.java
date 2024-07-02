@@ -17,18 +17,18 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    /********** METODO PARA OBTENER PRODUCTOS **********/
+    /* obtner productos */
     public List<Product> getProducts() {
         return productRepository.findAll();
     }
 
-    /********** METODO PARA CREAR PRODUCTO **********/
+    /* crear producto */
     public ResponseEntity<Object> newProduct(Product product) {
         productRepository.save(product);
         return new ResponseEntity<>("Product created successfully", HttpStatus.CREATED);
     }
 
-    /********** METODO PARA ELIMINAR PRODUCTO **********/
+    /* eliminar producto */
     public ResponseEntity<Object> deleteProduct(Long id) {
         Optional<Product> existingProductOptional = productRepository.findById(id);
         if (existingProductOptional.isPresent()) {
@@ -39,7 +39,7 @@ public class ProductService {
         }
     }
 
-    /********** METODO PARA ACTUALIZAR PRODUCTO **********/
+    /* actualizar producto */
     public ResponseEntity<Object> updateProduct(Long id, Product updatedProduct) {
         Optional<Product> existingProductOptional = productRepository.findById(id);
         if (existingProductOptional.isPresent()) {
@@ -57,7 +57,7 @@ public class ProductService {
         }
     }
 
-    /********** METODO PARA BUSCAR PRODUCTO POR ID **********/
+    /* buscar producto por id */
     public ResponseEntity<Object> findByIdProduct(Long id) {
         Optional<Product> existingProductOptional = productRepository.findById(id);
         if (existingProductOptional.isPresent()) {

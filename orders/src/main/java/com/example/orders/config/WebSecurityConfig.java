@@ -21,7 +21,7 @@ public class WebSecurityConfig {
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
-    /********** METODO DE SEGURIDAD WEB **********/
+    /* seguridad web metodo */
     @Bean
     SecurityFilterChain web(HttpSecurity http) throws Exception {
         http
@@ -43,20 +43,20 @@ public class WebSecurityConfig {
         return http.build();
     }
 
-    /********** METODO DE CIFRADO MEDIANTE BCRYPT **********/
+    /* cifrado mediante bcrypt */
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    /********** METODO PARA GESTIONAR AUTENTICACIÓN **********/
+    /* metodo para auth */
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
-    /********** METODO CIFRAR UNA CONTRASEÑA ESPECÍFICA **********/
-//    public static void main (String[] args) {
+    /* cifrar pass especifica */
+///    public static void main (String[] args) {
 //        System.out.println("pass: " + new BCryptPasswordEncoder().encode("castro"));
 //    }
 

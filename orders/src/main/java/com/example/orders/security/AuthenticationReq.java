@@ -9,7 +9,7 @@ public class AuthenticationReq implements Serializable {
     private String usuario;
     private String clave;
 
-    // Constructor por defecto necesario para la deserialización JSON
+
     public AuthenticationReq() {
     }
 
